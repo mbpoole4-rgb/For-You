@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7d5e2">
+  <title>Sadece Senin İçin ♡</title>
+  <style>
+    :root { --ink:#80133e; --pink:#f7d5e2; --accent:#a72258; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100svh; color:var(--ink); background:radial-gradient(ellipse at 50% 35%,#fff0f5 0%,var(--pink) 65%,#edb4c9 100%); font-family:Georgia,'Times New Roman',serif; }
+    body::before { content:''; position:fixed; inset:18px; border:1px solid #a7225833; pointer-events:none; }
+    main { min-height:100svh; display:grid; place-items:center; padding:65px 25px; }
+    .card { position:relative; width:min(100%,660px); text-align:center; }
+    .eyebrow { font:11px/1.5 Arial,sans-serif; letter-spacing:4px; text-transform:uppercase; }
+    .ornament { font-size:32px; margin:25px 0; font-weight:normal; }
+    h1 { font-size:clamp(48px,9vw,82px); line-height:1.06; letter-spacing:-3px; font-weight:400; margin:25px 0; }
+    h1 em { font-weight:400; }
+    .subtitle { font-size:19px; line-height:1.7; margin:0 auto 30px; max-width:440px; }
+    .buttons { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin:32px 0 18px; }
+    button { border:1px solid var(--accent); border-radius:100px; padding:17px 35px; cursor:pointer; font:14px Arial,sans-serif; transition:transform .2s,background .2s; min-width:140px; }
+    button:hover { transform:translateY(-3px); }
+    button:focus-visible { outline:3px solid var(--ink); outline-offset:5px; }
+    .primary { background:var(--ink); color:#fff3f7; }
+    .secondary { background:transparent; color:var(--ink); }
+    .footnote { font:11px/1.6 Arial,sans-serif; letter-spacing:2px; margin-top:40px; }
+    .error { font:14px/1.7 Arial,sans-serif; min-height:48px; margin:16px auto 0; max-width:390px; }
+    [hidden] { display:none !important; }
+    .flower { width:140px; height:180px; margin:15px auto 5px; display:block; filter:drop-shadow(0 12px 14px #80133e15); }
+    #answer h1 { font-size:clamp(39px,7vw,64px); letter-spacing:-2px; }
+    #message { font-size:23px; font-style:italic; line-height:1.6; min-height:115px; margin:20px auto; max-width:500px; }
+    .signature { font-size:17px; font-style:italic; margin-top:30px; }
+    .heart { position:fixed; bottom:-30px; color:#ad275b; pointer-events:none; animation:float 3s ease-out forwards; z-index:2; }
+    @keyframes float { to { transform:translateY(-85vh) rotate(25deg); opacity:0; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before { animation:none !important; transition:none !important; } .heart { display:none; } }
+    @media(max-width:450px) { body::before { inset:10px; } h1 { letter-spacing:-2px; } button { padding:16px 25px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <p class="eyebrow">Bir küçük soru · kocaman bir his</p>
+      <section id="question" aria-labelledby="question-title">
+        <div class="ornament" aria-hidden="true">❦</div>
+        <!-- Personalize this greeting with her name. -->
+        <p class="subtitle" id="greeting">Kalbimin en güzel yerine…</p>
+        <h1 id="question-title">Do you<br><em>love me?</em></h1>
+        <p class="subtitle">Beni seviyor musun?</p>
+        <div class="buttons">
+          <button class="primary" id="yes">Yes · Evet ♡</button>
+          <button class="secondary" id="no">No · Hayır</button>
+        </div>
+        <p class="error" id="error" role="status" aria-live="polite"></p>
+      </section>
+      <section id="answer" aria-labelledby="answer-title" hidden>
+        <!-- An original vector flower; no image downloads needed. -->
+        <svg class="flower" viewBox="0 0 160 210" role="img" aria-label="Senin için pembe bir çiçek">
+          <path d="M80 91 Q70 145 83 198" fill="none" stroke="#526747" stroke-width="4"/>
+          <path d="M78 158 Q35 159 34 128 Q68 128 78 158 M79 177 Q122 173 126 142 Q91 143 79 177" fill="#73865e"/>
+          <g fill="#c34777" stroke="#a32b5a" stroke-width="1">
+            <ellipse cx="80" cy="51" rx="23" ry="34"/>
+            <ellipse cx="80" cy="51" rx="23" ry="34" transform="rotate(72 80 77)"/>
+            <ellipse cx="80" cy="51" rx="23" ry="34" transform="rotate(144 80 77)"/>
+            <ellipse cx="80" cy="51" rx="23" ry="34" transform="rotate(216 80 77)"/>
+            <ellipse cx="80" cy="51" rx="23" ry="34" transform="rotate(288 80 77)"/>
+          </g>
+          <circle cx="80" cy="77" r="15" fill="#f1c883"/>
+          <circle cx="76" cy="73" r="4" fill="#ffe7bc"/>
+        </svg>
+        <h1 id="answer-title" tabindex="-1">Ben de seni<br><em>çok seviyorum.</em></h1>
+        <div aria-live="polite" aria-atomic="true"><p id="message"></p></div>
+        <div class="buttons">
+          <button class="primary" id="more">Bir güzel söz daha ♡</button>
+          <button class="secondary" id="again">Başa dön</button>
+        </div>
+        <!-- Change Mason to your preferred signature. -->
+        <p class="signature">Sevgilerimle, Mason</p>
+      </section>
+      <p class="footnote">SADECE SENİN İÇİN ♡</p>
+    </div>
+  </main>
+  <script>
+    // Edit these Turkish messages to make the page your own.
+    const messages = [
+      'Ne güzel bir cevap… Sen gülünce benim bütün dünyam güzelleşiyor.',
+      'Kalbim bu cevabı bekliyordu. İyi ki varsın, iyi ki hayatımdasın.',
+      'En güzel seçim… Seninle sıradan bir gün bile bir masala dönüşüyor.',
+      'Bir çiçek sana, bin güzel düşünce yine sana. Aklımın en tatlı yerindesin.',
+      'Gözlerindeki ışık, en karanlık günümü bile aydınlatmaya yetiyor.',
+      'Aramızda ne kadar mesafe olursa olsun, kalbimin en güzel yeri hep senin.',
+      'Seni düşünmek bile yüzümde bir gülümseme bırakıyor. Sen benim en güzel tesadüfümsün.',
+      'O güzel kalbinle dünyamı güzelleştiriyorsun. Sana her gün yeniden âşık olabilirim.'
+    ];
+    const errors = [
+      'Hata 404: “Hayır” bulunamadı. Kalbim bu cevaba hazır değildi 🙈 Tekrar deneyelim mi?',
+      'Kalp bağlantısı kesildi… Bir “evet” ile yeniden bağlanabilir miyiz? ♡',
+      'Beklenmedik cevap! Bu küçük aşk oyunu bir kez daha denemeni rica ediyor 🌷'
+    ];
+    const question = document.getElementById('question');
+    const answer = document.getElementById('answer');
+    const error = document.getElementById('error');
+    let lastMessage = -1;
+    let noCount = 0;
+    function showMessage() {
+      // Random on first click; never repeat the immediately previous message.
+      let next = Math.floor(Math.random() * (messages.length - 1));
+      if (next >= lastMessage) next++;
+      if (lastMessage === -1) next = Math.floor(Math.random() * messages.length);
+      lastMessage = next;
+      document.getElementById('message').textContent = messages[next];
+      celebrate();
+    }
+    function celebrate() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      for (let i = 0; i < 16; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'heart';
+        heart.textContent = '♡';
+        heart.setAttribute('aria-hidden', 'true');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = 15 + Math.random() * 23 + 'px';
+        heart.style.animationDelay = Math.random() * .7 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+    document.getElementById('yes').addEventListener('click', () => {
+      question.hidden = true;
+      answer.hidden = false;
+      showMessage();
+      document.getElementById('answer-title').focus();
+    });
+    document.getElementById('no').addEventListener('click', () => {
+      error.textContent = errors[noCount++ % errors.length];
+    });
+    document.getElementById('more').addEventListener('click', showMessage);
+    document.getElementById('again').addEventListener('click', () => {
+      answer.hidden = true;
+      question.hidden = false;
+      error.textContent = '';
+      document.getElementById('yes').focus();
+    });
+  </script>
+</body>
+</html>
